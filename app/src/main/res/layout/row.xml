@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="4dp">
+
+    <Button
+        android:id="@+id/button_remove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:fontFamily="casual"
+        android:textStyle="bold"
+        android:text="Remove"/>
+
+    <TextView
+        android:padding="5dp"
+        android:id="@+id/text_member"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:fontFamily="casual"
+        android:textStyle="bold"
+        android:layout_toLeftOf="@id/button_remove" />
+
+</RelativeLayout>

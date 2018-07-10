@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.android.maizapp">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/logo"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="com.example.android.maizapp.SplashScreenActivity"
+            android:label="Maiz">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.android.maizapp.MaizActivity"
+            android:label="Maiz" />
+        <activity
+            android:name="com.example.android.maizapp.MainActivity"
+            android:label="Purchases" />
+        <activity
+            android:name="com.example.android.maizapp.ModificationActivity"
+            android:label="Add/Remove Member"
+            android:windowSoftInputMode="adjustResize"
+            android:parentActivityName="com.example.android.maizapp.MainActivity" />
+        <activity
+            android:name="com.example.android.maizapp.MemberActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:parentActivityName="com.example.android.maizapp.MainActivity" />
+    </application>
+
+</manifest>

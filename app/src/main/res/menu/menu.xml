@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/item_add_remove_member"
+    android:title="Add/Remove Member"
+    app:showAsAction="never"/>
+
+    <item android:id="@+id/item_calculate"
+        android:title="Calculate"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/item_end_session"
+        android:title="End Session"
+        app:showAsAction="never"/>
+<!--
+    <item android:id="@+id/item_saved_sessions"
+        android:title="Saved Sessions"
+        app:showAsAction="never"/>
+        -->
+</menu>
