@@ -1,7 +1,10 @@
 package com.example.android.maizapp;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -71,6 +74,42 @@ public class MaizActivity extends AppCompatActivity {
             }
         });
 
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                final String maizName = listView.getItemAtPosition(i).toString();
+                AlertDialog.Builder alert = new AlertDialog.Builder(MaizActivity.this);
+                alert.setTitle("ALERT!");
+                alert.setMessage("Are you sure to delete "+ maizName + " Maiz?");
+                alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        mData.deleteFromPurchaseTable(getCurrentMaizID(maizName));
+                        mData.deleteFromMembersTable(getCurrentMaizID(maizName));
+                        mData.deleteFromMaizTable(maizName);
+                        mData.closeDB();
+                        if (!maizList().isEmpty()) {
+                            listView.setAdapter(new ArrayAdapter<>(MaizActivity.this, android.R.layout.simple_list_item_1, maizList()));
+                        } else {
+                            listView.setAdapter(new ArrayAdapter<>(MaizActivity.this, android.R.layout.simple_list_item_1, maizList()));
+                            mTextViewAddMaiz.setVisibility(View.VISIBLE);
+                            mImageViewArrow.setVisibility(View.VISIBLE);
+                        }
+                        dialogInterface.dismiss();
+                    }
+                });
+                alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                alert.show();
+                return true;
+            }
+        });
+
         mImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,11 +164,10 @@ public class MaizActivity extends AppCompatActivity {
         mSQLiteDatabase = mData.getReadableDatabase();
         mCursor = mSQLiteDatabase.rawQuery("SELECT _id FROM Maiz WHERE MaizName = '" + maizName + "' ", null);
         mCursor.moveToNext();
-        int currentMaizID = mCursor.getInt(0);
-        return currentMaizID;
+        return mCursor.getInt(0);
     }
 
-    public ArrayList<String> maizList() {
+    private ArrayList<String> maizList() {
         mData = new CoreDatabase(this);
         SQLiteDatabase db = mData.getWritableDatabase();
         mCursor = db.rawQuery("SELECT MaizName FROM Maiz", null);
@@ -141,7 +179,7 @@ public class MaizActivity extends AppCompatActivity {
         return maizs;
     }
 
-    public ArrayList<String> membersList(int maizID) {
+    private ArrayList<String> membersList(int maizID) {
         mData = new CoreDatabase(this);
         SQLiteDatabase db = mData.getWritableDatabase();
         mCursor = db.rawQuery("SELECT * FROM Member WHERE MaizID = '"+ maizID +"'" , null);
@@ -153,7 +191,7 @@ public class MaizActivity extends AppCompatActivity {
         return members;
     }
 
-    public void showMaizList() {
+    private void showMaizList() {
         arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, maizList());
         listView.setAdapter(arrayAdapter);
     }

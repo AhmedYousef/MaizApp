@@ -20,13 +20,13 @@ public class CoreDatabase extends SQLiteOpenHelper {
     final static private String DB_PURCHASE_TABLE = "Purchase";
     final static private int DB_VER = 4;
 
-    Context context;
-    SQLiteDatabase mSQLiteDatabase;
-    Cursor mCursor;
+    private Context context;
+    private SQLiteDatabase mSQLiteDatabase;
+    private Cursor mCursor;
 
     /**
      * This constructs the database to the SQLiteOpenHelper - super class - to create the database.
-     * @param context
+     * @param context the context of current state of the application/object.
      */
 
     public CoreDatabase(Context context) {
@@ -106,18 +106,33 @@ public class CoreDatabase extends SQLiteOpenHelper {
         mSQLiteDatabase.execSQL("UPDATE Maiz SET MemberCount = '" + instantMemberCount + "' WHERE _id = '" + currentMaizID + "' ");
     }
 
+    public void deleteFromMaizTable(String maizName){
+        mSQLiteDatabase = getWritableDatabase();
+        mSQLiteDatabase.execSQL("DELETE FROM Maiz WHERE MaizName = '"+ maizName +"'");
+    }
+
     public void deleteFromMembersTable(String memberName, int currentMaizID){
         mSQLiteDatabase = getWritableDatabase();
         mSQLiteDatabase.execSQL("DELETE FROM Member WHERE MemberName = '" + memberName + "' AND  MaizID = '" + currentMaizID + "' ");
+    }
+
+    public void deleteFromMembersTable(int currentMaizID){
+        mSQLiteDatabase = getWritableDatabase();
+        mSQLiteDatabase.execSQL("DELETE FROM Member WHERE MaizID = '" + currentMaizID + "' ");
     }
 
     /**
      * Executes deleting query to delete data from database
      * @param memberName refers to member name.
      */
-    public void deleteFromPurchaseTable(String memberName, int maizID){
+    public void deleteFromPurchaseTable(String memberName, int currentMaizID){
         mSQLiteDatabase = getWritableDatabase();
-        mSQLiteDatabase.execSQL("DELETE FROM " + DB_PURCHASE_TABLE + " WHERE MemberID IN (SELECT _id FROM Member WHERE MemberName = '" + memberName +"' AND MaizID = '"+ maizID +"')");
+        mSQLiteDatabase.execSQL("DELETE FROM " + DB_PURCHASE_TABLE + " WHERE MemberID IN (SELECT _id FROM Member WHERE MemberName = '" + memberName +"' AND MaizID = '"+ currentMaizID +"')");
+    }
+
+    public void deleteFromPurchaseTable(int currentMaizID){
+        mSQLiteDatabase = getWritableDatabase();
+        mSQLiteDatabase.execSQL("DELETE FROM " + DB_PURCHASE_TABLE + " WHERE MaizID = '" + currentMaizID + "'");
     }
 
     /**
