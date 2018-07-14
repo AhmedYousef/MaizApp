@@ -19,7 +19,6 @@ public class ResultCursorAdapter extends CursorAdapter {
     private SQLiteDatabase mSqLiteDatabase;
     private Cursor mCursor;
     private Context context;
-    private SharedPreferences sharedPreferences;
     int currentMaizID;
 
     public ResultCursorAdapter(Context context, Cursor cursor, int currentMaizID){
@@ -75,7 +74,7 @@ public class ResultCursorAdapter extends CursorAdapter {
         return individualTotal;
     }
 
-    public int getMemberCount(){
+    private int getMemberCount(){
         mData = new CoreDatabase(context);
         mSqLiteDatabase = mData.getReadableDatabase();
         mCursor = mSqLiteDatabase.rawQuery("SELECT MemberCount FROM Maiz WHERE _id = '" + currentMaizID +"'", null);
@@ -99,7 +98,7 @@ public class ResultCursorAdapter extends CursorAdapter {
     }
 
 
-    public double round(double value, int places) {
+    private double round(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
 
         BigDecimal bd = new BigDecimal(value);

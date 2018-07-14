@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void showPurchasesList(String memberName) {
+    private void showPurchasesList(String memberName) {
         mData = new CoreDatabase(this);
         SQLiteDatabase db = mData.getWritableDatabase();
         mCursor = db.rawQuery("SELECT * FROM Purchase WHERE MemberID IN (SELECT _id FROM Member WHERE MemberName = '" + memberName + "' AND MaizID = '"+ currentMaizID +"')", null);
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 
-    public void showDeletedPurchasesList() {
+    private void showDeletedPurchasesList() {
         mData = new CoreDatabase(this);
         SQLiteDatabase db = mData.getWritableDatabase();
         mCursor = db.rawQuery("SELECT * FROM Purchase WHERE MaizID = '"+ currentMaizID +"'", null);
@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(listAdapter);
     }
 
-    public void showResultList(Dialog dialog){
+    private void showResultList(Dialog dialog){
         mData = new CoreDatabase(this);
         SQLiteDatabase db = mData.getWritableDatabase();
         mCursor = db.rawQuery("SELECT * FROM Member WHERE MaizID = '"+ currentMaizID +"'", null);
@@ -161,12 +161,12 @@ public class MainActivity extends AppCompatActivity {
         tvAVR.setText( "Average = " + String.valueOf(resultAdapter.getAverage()));
     }
 
-    public void deleteAllPurchases(){
+    private void deleteAllPurchases(){
         mData.deleteAllPurchases(currentMaizID);
         mData.closeDB();
     }
 
-    public ArrayList<String> membersList() {
+    private ArrayList<String> membersList() {
         mData = new CoreDatabase(this);
         SQLiteDatabase db = mData.getWritableDatabase();
         mCursor = db.rawQuery("SELECT MemberName FROM Member WHERE MaizID = '"+ currentMaizID +"'", null);
@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void calculate(final boolean isDelete){
+    private void calculate(final boolean isDelete){
         final Dialog dialog = new Dialog(MainActivity.this);
         dialog.setContentView(R.layout.activity_result_dialog);
         dialog.setTitle("Custom Dialog");

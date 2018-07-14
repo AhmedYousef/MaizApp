@@ -3,7 +3,6 @@ package com.example.android.maizapp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -23,7 +22,6 @@ public class MemberActivity extends AppCompatActivity {
     LinearLayout mLayoutContainer;
     CoreDatabase mData;
     SQLiteDatabase mSQLiteDatabase;
-    Cursor mCursor;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     final static String TAG = "MemberActivity";
@@ -119,7 +117,7 @@ public class MemberActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    public void setEnable(Boolean btnAdd, Boolean btnSubmit) {
+    private void setEnable(Boolean btnAdd, Boolean btnSubmit) {
         mButtonAdd.setEnabled(btnAdd);
         mButtonSubmit.setEnabled(btnSubmit);
     }
